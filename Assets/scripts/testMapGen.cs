@@ -7,8 +7,7 @@ using Random = System.Random;
 
 public class testMapGen : MonoBehaviour {
 
-    public GameObject fogSprite;
-	public bool plaseFog = true;
+
 	public GameObject[] SpriteObjs; // 0 is floor, 1 is wall, 2 is wall with torch, 3 is player spawner, 4 is chest
 	public Vector3 ZeroPoint;
 	public static int mapsize = 40;
@@ -44,7 +43,7 @@ public class testMapGen : MonoBehaviour {
           
             for (int j = 0; j < mapsize; j++)
             {
-                int rndnum = rnd.Next(-1, 4);
+                int rndnum = rnd.Next(-1, 5);
                 switch (rndnum)
                 {
                     case -1:
@@ -69,7 +68,8 @@ public class testMapGen : MonoBehaviour {
                         }
                         break;
                     case 4:
-                        map[i] += "C";
+                        if (rnd.Next(0, 19) == 7) map[i] += "C";
+                        else map[i] += "-";
                         break;
                     
                     
@@ -91,19 +91,14 @@ public class testMapGen : MonoBehaviour {
                 switch (block)
                 {
                     case '#': GameObject.Instantiate(SpriteObjs[1], pos, new Quaternion(0, 0, 0, 0));
-					if(plaseFog)GameObject.Instantiate(fogSprite, new Vector3 (pos.x,pos.y,-3), new Quaternion(0, 0, 0, 0));
                         break;
                     case '-': GameObject.Instantiate(SpriteObjs[0], pos, new Quaternion(0, 0, 0, 0));
-					if(plaseFog)GameObject.Instantiate(fogSprite, new Vector3 (pos.x,pos.y,-3), new Quaternion(0, 0, 0, 0));
                         break;
                     case '*': GameObject.Instantiate(SpriteObjs[2], pos, new Quaternion(0, 0, 0, 0));
-					if(plaseFog)GameObject.Instantiate(fogSprite, new Vector3 (pos.x,pos.y,-3), new Quaternion(0, 0, 0, 0));
                         break;
 					case '@': GameObject.Instantiate(SpriteObjs[3], pos, new Quaternion(0, 0, 0, 0));
-					if(plaseFog)GameObject.Instantiate(fogSprite, new Vector3 (pos.x,pos.y,-3), new Quaternion(0, 0, 0, 0));
 					    break;
                     case 'C': GameObject.Instantiate(SpriteObjs[4], new Vector3(ZeroPoint.x + j, ZeroPoint.y - i, -1f), new Quaternion(0, 0, 0, 0));
-					if(plaseFog)GameObject.Instantiate(fogSprite, new Vector3 (pos.x,pos.y,-3), new Quaternion(0, 0, 0, 0));
                               GameObject.Instantiate(SpriteObjs[0], pos, new Quaternion(0, 0, 0, 0));
                         break;
 
